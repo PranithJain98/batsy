@@ -1,0 +1,57 @@
+class qu():
+    def __init__(self,limit=3):
+        self.limit=limit
+        self.que=[]
+        self.front=None
+        self.rear=None
+        self.size=0
+    def isempty(self):
+        return self.size<=0
+    def enque(self,data):
+        if self.size>=self.limit:
+            self.resize()
+        self.que.append(data)
+        if self.front is None:
+            self.front=self.rear=0
+        else:
+            self.rear=self.size
+        self.size+=1
+        print("Queue after enqueue is :",self.que)
+    def deque(self):
+        if self.size<=0:
+            print("Queue underflow")
+        else:
+            self.que.pop(0)
+            self.size-=1
+            if self.size==0:
+                self.front=self.rear=None
+            else:
+                self.rear=self.size-1
+            print("Queue after dequeue is:",self.que)
+    def querear(self):
+        if self.rear is None:
+            print("Queue is empty")
+            raise IndexError
+        return self.que[self.rear]
+    def quefront(self):
+        if self.front is None:
+            print("queue is empty")
+            raise IndexError
+        return self.que[self.front]
+    def size(self):
+        return self.size
+    def siz(self):
+        print(len(self.que))
+    def resize(self):
+        new=self.que
+        self.limit=2*self.limit
+        self.que=new
+#example
+que=qu()
+que.enque(1)
+que.enque(2)
+que.enque(3)
+que.enque(4)
+que.deque()
+print(que.querear())
+print(que.quefront())
