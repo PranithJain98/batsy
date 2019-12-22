@@ -1,0 +1,80 @@
+class Node:
+
+    def __init__(self, data):
+
+        self.left = None
+        self.right = None
+        self.data = data
+# Insert Node
+    def insert(self, data):
+
+        if self.data:
+            if data < self.data:
+                if self.left is None:
+                    self.left = Node(data)
+                else:
+                    self.left.insert(data)
+            elif data > self.data:
+                if self.right is None:
+                    self.right = Node(data)
+                else:
+                    self.right.insert(data)
+        else:
+            self.data = data
+
+# Print the Tree
+    def PrintTree(self):
+        if self.left:
+            self.left.PrintTree()
+        print( self.data),
+        if self.right:
+            self.right.PrintTree()
+#inorder traversal
+#inorder : left-> root-> right
+    def inorder(self,root):
+        res=[]
+        if root:
+            res=self.inorder(root.left)
+            res.append(root.data)
+            res=res+self.inorder(root.right)
+        return res
+#preorder traversal
+#preorder : root->left-> right
+    def preorder(self,root):
+        res=[]
+        if root:
+            res.append(root.data)
+            res=res+self.preorder(root.left)
+            res=res+self.preorder(root.right)
+        return res
+#postorder traversal
+#postorder : left-> right->root
+    def postorder(self,root):
+        res=[]
+        if root:
+            res=self.postorder(root.left)
+            res=res+self.postorder(root.right)
+            res.append(root.data)
+        return res
+
+#example
+root = Node(27)
+root.insert(14)
+root.insert(35)
+root.insert(10)
+root.insert(19)
+root.insert(31)
+root.insert(42)
+root.PrintTree()
+
+print("inorder is:")
+print(root.inorder(root))
+print(" ")
+
+print("preorder is:")
+print(root.preorder(root))
+print(" ")
+
+print("postorder is:")
+print(root.postorder(root))
+print(" ")
